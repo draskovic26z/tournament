@@ -16,4 +16,7 @@ pub enum TRMTError {
 
     #[msg("Signer doesn't possess the NFT")]
     NoNftInTA,
+
+    WrongWarriorMetadata,
+    WarriorMetadataWrongMint,
 }

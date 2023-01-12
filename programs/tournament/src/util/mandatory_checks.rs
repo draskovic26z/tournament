@@ -47,10 +47,22 @@ pub fn check_data(ctx: &Context<Battle>) -> Result<()> {
         TRMTError::WrongOwnerOfTA
     );
 
-    //Check if TA1 is for the right mint
+    //Check if TA2 is for the right mint
     require!(
         ctx.accounts.p2_token_acc.mint == ctx.accounts.p2_mint.key(),
         TRMTError::WrongTokenAccountMint
+    );
+
+    //Warrior metadata checks
+
+    require!(
+        ctx.accounts.warrior_metadata.authority == ctx.accounts.player1.key(),
+        TRMTError::WrongWarriorMetadata
+    );
+
+    require!(
+        ctx.accounts.warrior_metadata.mint == ctx.accounts.p1_mint.key(),
+        TRMTError::WarriorMetadataWrongMint
     );
 
     Ok(())
