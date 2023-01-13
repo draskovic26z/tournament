@@ -29,16 +29,19 @@ pub struct Battle<'info> {
     pub p2_mint: Account<'info, Mint>,
 
     #[account()]
-    pub p1_mpx_metadata: AccountInfo<'info>,
+    pub p1_mpx_metadata: UncheckedAccount<'info>,
 
     #[account(mut)]
     pub warrior_metadata: Account<'info, WarriorMetadata>,
 
+    #[account(mut)]
+    pub opponent_metadata: Account<'info, WarriorMetadata>,
+
     #[account(
         init_if_needed,
-        payer= player1,
+        payer = player1,
         space = 8 + size_of::<Arena>(),
-        seeds = [b"tournament", player1.key().as_ref(), player2.key().as_ref(), b"vault"],
+        seeds = [b"tournament", player1.key().as_ref(), player2.key().as_ref(), b"arena"],
         bump
     )]
     pub escrow: Box<Account<'info, Arena>>,
@@ -63,6 +66,8 @@ pub fn battle(ctx: Context<Battle>) -> Result<()> {
             arena.warrior_metadata1 = ctx.accounts.warrior_metadata.key();
             // Write warrior metadata to the arena state account
             // arena.warrior_metadata1 = ctx.accounts.warrior_metadata.;
+
+            //approve nft ta
         }
         true => {
             require!(
@@ -70,15 +75,17 @@ pub fn battle(ctx: Context<Battle>) -> Result<()> {
                 TRMTError::WrongCollection //todo
             );
             require!(
-                arena.player1.key() == ctx.accounts.player1.key(),
+                arena.player1.key() == ctx.accounts.player2.key(),
                 TRMTError::WrongCollection //todo
             );
 
             arena.warrior_metadata2 = ctx.accounts.warrior_metadata.key();
 
+            //approve nft ta
+
             //Get warrior metadata
-            // let war_meta_1 = WarriorMetadata::
-            // let war_meta_2 = WarriorMetadata::
+            let war_meta_1 = &ctx.accounts.warrior_metadata;
+            let war_meta_2 = &ctx.accounts.opponent_metadata;
 
             //Make it into a struct for easier fighting and readability
             // let mut fighter1: Fighter = Fighter {
@@ -87,6 +94,7 @@ pub fn battle(ctx: Context<Battle>) -> Result<()> {
             //     attack_speed: (),
             //     armor: (),
             // };
+
             // let mut fighter2: Fighter = Fighter {
             //     attack: war_meta_2.attack,
             //     defense: (),

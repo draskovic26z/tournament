@@ -6,19 +6,19 @@ pub enum Special {
     //Background
     Grassland,
     Battlefield,
-    Castle,
-    Sky,
+    Castle, // Opponent doesnt attack first round
+    Hell,   // On first death, revive with 30hp
 
     //Helmet
     Iron,
     Bronze,
     Gold,
-    None,
+    Jade,
 
     //Body
     Plate,
     Leather,
-    PLACEHOLDER1,
+    Emerald,
     PLACEHOLDER2,
 
     //Hand
@@ -28,7 +28,7 @@ pub enum Special {
     Bare,
 
     //Weapon
-    Spear,
+    Halberd,
     Sword,
     Shield,
     SpikedShield,

@@ -4,7 +4,6 @@ use crate::constants::Special;
 
 #[account]
 pub struct WarriorMetadata {
-    pub authority: Pubkey,
     pub mint: Pubkey,
     pub num_of_victories: u8,
     //Stats

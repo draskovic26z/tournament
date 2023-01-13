@@ -25,10 +25,10 @@ pub fn check_data(ctx: &Context<Battle>) -> Result<()> {
     //Check TA1
 
     //Check owner of TA1
-    require!(
-        ctx.accounts.p1_token_acc.owner == *ctx.accounts.player1.key,
-        TRMTError::WrongOwnerOfTA
-    );
+    // require!(
+    //     ctx.accounts.p1_token_acc.owner == *ctx.accounts.player1.key,
+    //     TRMTError::WrongOwnerOfTA
+    // );
 
     //Check if TA1 is for the right mint
     require!(
@@ -42,10 +42,10 @@ pub fn check_data(ctx: &Context<Battle>) -> Result<()> {
     //Check TA2
 
     //Check owner of TA2
-    require!(
-        ctx.accounts.p2_token_acc.owner == *ctx.accounts.player2.key,
-        TRMTError::WrongOwnerOfTA
-    );
+    // require!(
+    //     ctx.accounts.p2_token_acc.owner == *ctx.accounts.player2.key,
+    //     TRMTError::WrongOwnerOfTA
+    // );
 
     //Check if TA2 is for the right mint
     require!(
@@ -54,11 +54,6 @@ pub fn check_data(ctx: &Context<Battle>) -> Result<()> {
     );
 
     //Warrior metadata checks
-
-    require!(
-        ctx.accounts.warrior_metadata.authority == ctx.accounts.player1.key(),
-        TRMTError::WrongWarriorMetadata
-    );
 
     require!(
         ctx.accounts.warrior_metadata.mint == ctx.accounts.p1_mint.key(),

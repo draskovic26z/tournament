@@ -113,7 +113,6 @@ pub fn mint_nft(ctx: Context<MintNFT>) -> Result<()> {
     invoke(&master_edition_ix, &master_edition_account_infos)?;
 
     let warrior_metadata: &mut Account<WarriorMetadata> = &mut ctx.accounts.warrior_metadata;
-    warrior_metadata.authority = ctx.accounts.user.key();
     warrior_metadata.mint = ctx.accounts.mint.key();
     warrior_metadata.attack = 0;
     warrior_metadata.defense = 0;
