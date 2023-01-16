@@ -1,6 +1,5 @@
+use super::Trait;
 use anchor_lang::prelude::*;
-
-use crate::constants::Special;
 
 #[account]
 pub struct WarriorMetadata {
@@ -10,11 +9,11 @@ pub struct WarriorMetadata {
     pub attack: u8,
     pub defense: u8,
     pub armor: u8,
-    pub attack_speed: u8,
+    pub armor_pen: u8,
     //Special traits
-    pub background: Special,
-    pub helmet: Special,
-    pub body: Special,
-    pub hand: Special,
-    pub weapon: Special,
+    pub background: Trait,
+    pub helmet: Trait,
+    pub body: Trait,
+    pub hand: Trait,
+    pub weapon: Trait,
 }

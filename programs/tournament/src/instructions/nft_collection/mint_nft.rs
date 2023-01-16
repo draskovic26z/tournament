@@ -117,7 +117,7 @@ pub fn mint_nft(ctx: Context<MintNFT>) -> Result<()> {
     warrior_metadata.attack = 0;
     warrior_metadata.defense = 0;
     warrior_metadata.armor = 0;
-    warrior_metadata.attack_speed = 0;
+    warrior_metadata.armor_pen = 0;
 
     Ok(())
 }

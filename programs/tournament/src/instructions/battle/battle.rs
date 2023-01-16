@@ -1,9 +1,9 @@
 use crate::{
     error::TRMTError,
     state::*,
-    util::{check_data, commence_battle, update_arena},
+    util::{check_data, commence_battle},
 };
-use anchor_lang::{prelude::*, solana_program::info};
+use anchor_lang::prelude::*;
 
 use anchor_spl::token::{Mint, Token, TokenAccount};
 use std::mem::size_of;
@@ -64,8 +64,7 @@ pub fn battle(ctx: Context<Battle>) -> Result<()> {
             arena.player2 = *ctx.accounts.player2.key;
             arena.round = ctx.accounts.warrior_metadata.num_of_victories + 1;
             arena.warrior_metadata1 = ctx.accounts.warrior_metadata.key();
-            // Write warrior metadata to the arena state account
-            // arena.warrior_metadata1 = ctx.accounts.warrior_metadata.;
+            arena.warrior_metadata2 = ctx.accounts.opponent_metadata.key();
 
             //approve nft ta
         }
@@ -81,39 +80,39 @@ pub fn battle(ctx: Context<Battle>) -> Result<()> {
 
             arena.warrior_metadata2 = ctx.accounts.warrior_metadata.key();
 
-            //approve nft ta
+            //TODO: approve nft ta
 
-            //Get warrior metadata
             let war_meta_1 = &ctx.accounts.warrior_metadata;
             let war_meta_2 = &ctx.accounts.opponent_metadata;
 
-            //Make it into a struct for easier fighting and readability
-            // let mut fighter1: Fighter = Fighter {
-            //     attack: war_meta_1.attack,
-            //     defense: (),
-            //     attack_speed: (),
-            //     armor: (),
-            // };
+            let mut p1 = Warrior::new(
+                war_meta_1.attack,
+                war_meta_1.defense,
+                war_meta_1.armor,
+                war_meta_1.armor_pen,
+                war_meta_1.background,
+                war_meta_1.helmet,
+                war_meta_1.body,
+                war_meta_1.hand,
+                war_meta_1.weapon,
+            );
 
-            // let mut fighter2: Fighter = Fighter {
-            //     attack: war_meta_2.attack,
-            //     defense: (),
-            //     attack_speed: (),
-            //     armor: (),
-            // };
+            let mut p2 = Warrior::new(
+                war_meta_2.attack,
+                war_meta_2.defense,
+                war_meta_2.armor,
+                war_meta_2.armor_pen,
+                war_meta_2.background,
+                war_meta_2.helmet,
+                war_meta_2.body,
+                war_meta_2.hand,
+                war_meta_2.weapon,
+            );
 
-            let mut counter: u8 = 1;
-            loop {
-                if counter == 10_u8 {
-                    break;
-                };
-                //..
+            p1.trait_buffs(&p2);
+            p2.trait_buffs(&p1);
 
-                //todo
-
-                //Increment
-                counter += 1;
-            }
+            commence_battle(&mut p1, &mut p2);
         }
     }
 
