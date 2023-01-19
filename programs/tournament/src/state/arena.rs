@@ -6,8 +6,8 @@ pub struct Arena {
     pub player2: Pubkey,
     pub round: u8,
     pub is_ready: bool,
-    pub p1_token_account: Pubkey,
-    pub p2_token_account: Pubkey,
+    pub p1_escrow: Pubkey,
+    pub p2_escrow: Pubkey,
     pub warrior_metadata1: Pubkey,
     pub warrior_metadata2: Pubkey,
 }
